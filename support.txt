@@ -1,18 +1,6 @@
 => Reprograma Jucás <=
 https://emanuelquintino.github.io/Page-WDC/
 
-=> Vite types <=
-
-/// <reference types="vite/client" />
-
-interface ImportMetaEnv {
-  readonly VITE_API: string;
-}
-
-interface ImportMeta {
-  readonly env: ImportMetaEnv;
-}
-
 => Pokemon Types <=
 
 import { AppTheme } from "./styles";
