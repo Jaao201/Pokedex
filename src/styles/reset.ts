@@ -55,7 +55,7 @@ export const GlobalStyle = createGlobalStyle`
     width: 100%;
     margin: 15% auto;
     font-weight: 700;
-    font-size: 2.0rem;
+    font-size: 20rem;
     color: lightgray;
     display: grid;
     place-content: center;
