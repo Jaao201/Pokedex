@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled.main`
 	h1 {
 		font-size: 1.4rem;
 	}
@@ -17,8 +17,10 @@ export const Container = styled.div`
 
 	@media (min-width: 768px) {
 		h1 {
-			margin-top: 2.4rem;
-			font-size: 2.8rem;
+			font-size: 1.4rem;
+			text-align: center;
+			color: lightgrey;
+			margin-top: 0.8rem;
 		}
 
 		.gridCards {

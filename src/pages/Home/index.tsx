@@ -4,7 +4,8 @@ import { useQueryPokemonPage } from "../../hooks/useQuery.PokemonPage";
 import { Container } from "./style";
 
 export function Home() {
-	const { data, isLoading, error } = useQueryPokemonPage();
+	const { data, isLoading, error, nextPage, prevPage, page, totalPages } =
+		useQueryPokemonPage();
 
 	console.log(data);
 	if (error) console.error(error);
@@ -23,6 +24,13 @@ export function Home() {
 						</Link>
 					);
 				})}
+			</div>
+			<div className="paginationComponent">
+				<button onClick={prevPage}>&lt; Anterior</button>
+				<button onClick={nextPage}>&gt; Próximo</button>
+				<span>
+					{String(page).padStart(2, "0")}/{String(totalPages).padStart(2, "0")}
+				</span>
 			</div>
 		</Container>
 	);

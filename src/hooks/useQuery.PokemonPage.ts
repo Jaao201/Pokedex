@@ -1,10 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
 import { API } from "../configs/api";
 import { Pokemon } from "../@types/pokemon";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function useQueryPokemonPage() {
-	async function getPokemonPage() {
-		const { data } = await API.get("/pokemon");
+	const [limit, setLimit] = useState(30);
+	const [page, setPage] = useState(1);
+	const [totalPages, setTotalPages] = useState(1);
+
+	const navigate = useNavigate();
+
+	async function getPokemonPage({ page = 1, limit = 30 }) {
+		const offset = (page - 1) * limit;
+		const { data } = await API.get(`/pokemon?limit=${limit}&offset=${offset}`);
 
 		const pokemonPromises = data.results.map(
 			async (pokemon: { url: string }) => {
@@ -16,16 +25,36 @@ export function useQueryPokemonPage() {
 		const pokemonData = await Promise.all(pokemonPromises);
 		console.log(pokemonData);
 
+		const totalPokemon = data.count;
+		const totalPagesAPI = Math.ceil(totalPokemon / limit);
+
+		if (totalPages != totalPagesAPI) {
+			setTotalPages(totalPagesAPI);
+		}
+
 		console.log(pokemonPromises);
 		return pokemonData as Pokemon[];
 	}
+	function nextPage() {
+		setPage((prevValue) => prevValue + 1);
+		navigate(`?page=${page + 1}`);
+	}
+	function prevPage() {
+		setPage((prevValue) => prevValue - 1);
+		navigate(`?page=${page - 1}`);
+	}
 
 	const query = useQuery({
-		queryKey: ["getPokemonPage"],
-		queryFn: getPokemonPage,
+		queryKey: ["getPokemonPage", page, limit],
+		queryFn: () => getPokemonPage({ page, limit }),
 	});
 
 	return {
 		...query,
+		page,
+		totalPages,
+		setLimit,
+		nextPage,
+		prevPage,
 	};
 }

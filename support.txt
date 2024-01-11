@@ -1,5 +1,5 @@
 => Reprograma Jucás <=
-https://emanuelquintino.github.io/Page-WDC/
+
 
 => Vercel <=
 
