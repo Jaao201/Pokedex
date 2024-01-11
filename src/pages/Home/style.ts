@@ -59,5 +59,17 @@ export const Container = styled.main`
 			margin-top: 4.2rem;
 			gap: 2.4rem;
 		}
+		.paginationComponent {
+			width: 32rem;
+			margin: 3.2rem auto 0;
+
+			.boxNumberPage {
+				font-size: 1.8rem;
+			}
+			button {
+				font-size: 1.6rem;
+				padding: 0.8rem 1.6rem;
+			}
+		}
 	}
 `;
