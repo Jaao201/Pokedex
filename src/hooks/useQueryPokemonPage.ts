@@ -7,7 +7,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 export function useQueryPokemonPage() {
 	const [limit, setLimit] = useState(30);
 	const [page, setPage] = useState(1);
-	const [totalPages, setTotalPages] = useState(1);
+	const [totalPages, setTotalPages] = useState(0);
 
 	const navigate = useNavigate();
 	const searchParams = useSearchParams();
@@ -49,7 +49,21 @@ export function useQueryPokemonPage() {
 		const pageQuery = Number(searchParams[0].get("page"));
 
 		setPage(pageQuery || 1);
-	}, [searchParams]);
+
+		if (totalPages > 0) {
+			if (pageQuery > totalPages) {
+				navigate(`?page=${totalPages}`);
+				setPage(totalPages);
+				return;
+			}
+
+			if (pageQuery < 1) {
+				navigate(`?page=${1}`);
+				setPage(1);
+				return;
+			}
+		}
+	}, [searchParams, page, totalPages, navigate]);
 
 	const query = useQuery({
 		queryKey: ["getPokemonPage", page, limit],
