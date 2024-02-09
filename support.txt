@@ -1,8 +1,0 @@
-=> Reprograma Jucás <=
-
-
-=> Vercel <=
-
-{
-  "rewrites": [{ "source": "/(.*)", "destination": "/" }]
-}
